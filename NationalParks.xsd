@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSE445 Assignment 4 - XML Schema for the National Parks directory.
+     Defines the structure shown in Figure 1 of the assignment. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Root element: contains one or more NationalPark elements. -->
+  <xs:element name="NationalParks">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="NationalPark" type="NationalParkType" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- A single national park. Children must appear in this order:
+       Name, one or more Phone, then Address. Rating is an OPTIONAL attribute. -->
+  <xs:complexType name="NationalParkType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Phone" type="xs:string" maxOccurs="unbounded"/>
+      <xs:element name="Address" type="AddressType"/>
+    </xs:sequence>
+    <xs:attribute name="Rating" type="xs:decimal" use="optional"/>
+  </xs:complexType>
+
+  <!-- Address block. Children in order: Number, Street, City, State, Zip.
+       NearestAirport is a REQUIRED attribute. -->
+  <xs:complexType name="AddressType">
+    <xs:sequence>
+      <xs:element name="Number" type="xs:int"/>
+      <xs:element name="Street" type="xs:string"/>
+      <xs:element name="City" type="xs:string"/>
+      <xs:element name="State" type="xs:string"/>
+      <xs:element name="Zip" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="NearestAirport" type="xs:string" use="required"/>
+  </xs:complexType>
+
+</xs:schema>
